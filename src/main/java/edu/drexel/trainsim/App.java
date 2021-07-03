@@ -1,13 +1,15 @@
 package edu.drexel.trainsim;
 
+import io.javalin.Javalin;
+
 /**
  * Hello world!
- *
  */
-public class App 
+public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        System.out.println( "Hello World!" );
+        Javalin app = Javalin.create().start(7000);
+        app.get("/", ctx -> ctx.result("Hello, World!"));
     }
 }

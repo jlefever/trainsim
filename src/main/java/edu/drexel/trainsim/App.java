@@ -9,7 +9,9 @@ public class App
 {
     public static void main(String[] args)
     {
-        Javalin app = Javalin.create().start(7000);
-        app.get("/", ctx -> ctx.result("Hello, World!"));
+        var app = Javalin.create(config -> {
+            config.addSinglePageRoot("/", "/frontend/index.html");
+        }).start(7000);
+        app.get("/hello", ctx -> ctx.result("Hello, World!"));
     }
 }

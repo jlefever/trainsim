@@ -1,0 +1,5 @@
+{
+    // https://dev.xwiki.org/xwiki/bin/view/Community/CodeStyle/JavaCodeStyle/
+    "java.format.settings.url": "https://raw.github.com/xwiki/xwiki-commons/master/xwiki-commons-tools/xwiki-commons-tool-verification-resources/src/main/resources/codestyle-eclipse-java.xml",
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

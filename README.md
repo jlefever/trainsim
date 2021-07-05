@@ -2,11 +2,11 @@
 
 Simulate purchasing train tickets.
 
-## Usage
+## Build
 
 Build with maven and run.
 
 ```
-mvn clean compile assembly:single
-java -jar target/trainsim-1.0-SNAPSHOT-jar-with-dependencies.jar
+mvn clean package
+java -jar target/trainsim-1.0-SNAPSHOT-shaded.jar
 ```

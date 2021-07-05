@@ -5,11 +5,7 @@ module.exports = {
     entry: "./src/index.ts",
     mode: "development",
     devtool: "inline-source-map",
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "Output Management"
-        })
-    ],
+    plugins: [new HtmlWebpackPlugin({ title: "Demo" })],
     module: {
         rules: [
             {

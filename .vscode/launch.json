@@ -5,10 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "edu.drexel.trainsim.App",
+            "projectName": "trainsim"
+        },
+        {
             "name": "Launch Chrome",
             "request": "launch",
             "type": "pwa-chrome",
-            "url": "http://localhost:7000",
+            "url": "http://localhost:7070",
             "webRoot": "${workspaceFolder}/src/web/"
         }
     ]

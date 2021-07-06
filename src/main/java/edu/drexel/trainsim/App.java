@@ -11,7 +11,7 @@ public class App
     {
         var app = Javalin.create(config -> {
             config.addStaticFiles("/static/");
-        }).start(7000);
+        }).start(7070);
         app.get("/hello", ctx -> ctx.result("Hello, World!"));
     }
 }

@@ -1,6 +1,4 @@
-target/
-.settings/
-.classpath
-.project
-**/node_modules/
-src/main/resources/static/
+**/target/
+**/.settings/
+**/.classpath
+**/.project

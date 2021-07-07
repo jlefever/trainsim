@@ -8,5 +8,5 @@ Build with maven and run.
 
 ```
 mvn clean package
-java -jar target/trainsim-1.0-SNAPSHOT-shaded.jar
+docker-compose up
 ```

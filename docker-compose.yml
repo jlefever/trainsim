@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+    trainsim-client:
+        build: trainsim-client
+        volumes:
+            - ./trainsim-client/dist:/usr/share/nginx/html
+        ports:
+            - "8000:80"
+        depends_on:
+            - trainsim-api
+    trainsim-api:
+        build: trainsim-api
+        ports:
+            - "8001:80"
+        depends_on:
+            - trainsim-planner
+            - trainsim-db
+    trainsim-planner:
+        build: trainsim-planner
+        ports:
+            - "8002:80"
+    trainsim-db:
+        build: trainsim-db
+        environment:
+            POSTGRES_PASSWORD: mysecretpassword
+        volumes:
+            - ./trainsim-db/scripts:/docker-entrypoint-initdb.d
+            - ./trainsim-db/data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        depends_on:
+            - trainsim-planner

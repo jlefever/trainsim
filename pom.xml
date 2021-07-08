@@ -10,6 +10,7 @@
 
   <modules>
       <module>trainsim-api</module>
+      <module>trainsim-client</module>
   </modules>
 
   <build>

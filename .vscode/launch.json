@@ -5,11 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Attach to 'trainsim-api'",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": "1044",
+            "sourcePaths": ["trainsim-api/"]
+        },
+        {
             "name": "Launch Chrome",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}/trainsim-client/"
+            "webRoot": "trainsim-client/"
         }
     ]
 }

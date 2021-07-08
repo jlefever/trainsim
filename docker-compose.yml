@@ -12,6 +12,7 @@ services:
         build: trainsim-api
         ports:
             - "8001:80"
+            - "1044:1044"
         depends_on:
             - trainsim-planner
             - trainsim-db

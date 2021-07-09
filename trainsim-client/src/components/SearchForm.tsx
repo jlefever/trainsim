@@ -28,11 +28,11 @@ function isValidQuery(state: SearchFormState) {
         return false;
     }
 
-    return !(query.return && query.return <= query.depart);
+    return !(query.returnDate && query.returnDate <= query.departDate);
 }
 
 function submit(state: SearchFormState) {
-    const query = state.isRoundTrip ? state.query : { ...state.query, return: null };
+    const query = state.isRoundTrip ? state.query : { ...state.query, returnDate: null };
 
     const req = new XMLHttpRequest();
     req.open("POST", "/api/query", true);
@@ -47,8 +47,8 @@ export default class SearchForm extends React.Component<{}, SearchFormState> {
             query: {
                 source: "",
                 target: "",
-                depart: new Date(),
-                return: addDays(new Date(), 3),
+                departDate: new Date(),
+                returnDate: addDays(new Date(), 3),
                 travelers: 1
             },
             isRoundTrip: false
@@ -96,17 +96,17 @@ export default class SearchForm extends React.Component<{}, SearchFormState> {
                     <DateField
                         name="Depart"
                         min={new Date()}
-                        max={this.state.isRoundTrip ? this.state.query.return : null}
-                        value={this.state.query.depart}
-                        onChange={v => this.setState({ query: { ...this.state.query, depart: v } })}
+                        max={this.state.isRoundTrip ? this.state.query.returnDate : null}
+                        value={this.state.query.departDate}
+                        onChange={v => this.setState({ query: { ...this.state.query, departDate: v } })}
                     />
                 </div>
                 <div className="column is-5">
                     <DateField
                         name="Return"
-                        min={this.state.query.depart}
-                        value={this.state.query.return}
-                        onChange={v => this.setState({ query: { ...this.state.query, return: v } })}
+                        min={this.state.query.departDate}
+                        value={this.state.query.returnDate}
+                        onChange={v => this.setState({ query: { ...this.state.query, returnDate: v } })}
                         disabled={!this.state.isRoundTrip}
                     />
                 </div>

@@ -70,68 +70,68 @@ SELECT
 FROM json_populate_recordset(null::otp.api_route_short, otp_data);
 $$;
 
--- CALL otp.load_routes('[
---     {
---         "id": "1:1",
---         "shortName": "1",
---         "longName": "Parx Casino to 54th-City",
---         "mode": "BUS",
---         "agencyName": "SEPTA"
---     },
---     {
---         "id": "1:124",
---         "shortName": "124",
---         "longName": "Chesterbrook to 13th & Market",
---         "mode": "BUS",
---         "agencyName": "SEPTA"
---     },
---     {
---         "id": "1:3",
---         "shortName": "3",
---         "longName": "33rd-Cecil B. Moore to FTC",
---         "mode": "BUS",
---         "agencyName": "SEPTA"
---     },
---     {
---         "id": "1:2",
---         "shortName": "2",
---         "longName": "20-Johnston to Pulaski-Hntg Park",
---         "mode": "BUS",
---         "agencyName": "SEPTA"
---     }
--- ]');
+CALL otp.load_routes('[
+    {
+        "id": "1:1",
+        "shortName": "1",
+        "longName": "Parx Casino to 54th-City",
+        "mode": "BUS",
+        "agencyName": "SEPTA"
+    },
+    {
+        "id": "1:124",
+        "shortName": "124",
+        "longName": "Chesterbrook to 13th & Market",
+        "mode": "BUS",
+        "agencyName": "SEPTA"
+    },
+    {
+        "id": "1:3",
+        "shortName": "3",
+        "longName": "33rd-Cecil B. Moore to FTC",
+        "mode": "BUS",
+        "agencyName": "SEPTA"
+    },
+    {
+        "id": "1:2",
+        "shortName": "2",
+        "longName": "20-Johnston to Pulaski-Hntg Park",
+        "mode": "BUS",
+        "agencyName": "SEPTA"
+    }
+]');
 
--- CALL otp.load_stops('[
---     {
---         "id": "1:2317",
---         "name": "Lancaster Ave & Malin Rd - MBNS",
---         "lat": 40.040428,
---         "lon": -75.541873
---     },
---     {
---         "id": "1:2315",
---         "name": "Springdale Dr & Beldon Blvd - FS",
---         "lat": 40.029261,
---         "lon": -75.605645
---     },
---     {
---         "id": "1:2",
---         "name": "Ridge Av & Wissahickon Transfer Center",
---         "lat": 40.014986,
---         "lon": -75.206826,
---         "stationId": "1:31032",
---         "cluster": "31032"
---     },
---     {
---         "id": "1:2312",
---         "name": "Pottstown Pk & Sunrise Blvd",
---         "lat": 40.038272,
---         "lon": -75.632269
---     },
---     {
---         "id": "1:5",
---         "name": "Roosevelt Blvd & 5th St",
---         "lat": 40.023465,
---         "lon": -75.133487
---     }
--- ]');
+CALL otp.load_stops('[
+    {
+        "id": "1:2317",
+        "name": "Lancaster Ave & Malin Rd - MBNS",
+        "lat": 40.040428,
+        "lon": -75.541873
+    },
+    {
+        "id": "1:2315",
+        "name": "Springdale Dr & Beldon Blvd - FS",
+        "lat": 40.029261,
+        "lon": -75.605645
+    },
+    {
+        "id": "1:2",
+        "name": "Ridge Av & Wissahickon Transfer Center",
+        "lat": 40.014986,
+        "lon": -75.206826,
+        "stationId": "1:31032",
+        "cluster": "31032"
+    },
+    {
+        "id": "1:2312",
+        "name": "Pottstown Pk & Sunrise Blvd",
+        "lat": 40.038272,
+        "lon": -75.632269
+    },
+    {
+        "id": "1:5",
+        "name": "Roosevelt Blvd & 5th St",
+        "lat": 40.023465,
+        "lon": -75.133487
+    }
+]');

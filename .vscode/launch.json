@@ -10,14 +10,16 @@
             "request": "attach",
             "hostName": "localhost",
             "port": "1044",
-            "sourcePaths": ["trainsim-api/"]
+            "sourcePaths": [
+                "trainsim-api/"
+            ]
         },
         {
-            "name": "Launch Chrome",
+            "name": "Launch `trainsim-client` in Chrome",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8000",
-            "webRoot": "trainsim-client/"
+            "webRoot": "${workspaceFolder}/trainsim-client/"
         }
     ]
 }

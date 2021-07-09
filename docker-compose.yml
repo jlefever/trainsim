@@ -9,10 +9,17 @@ services:
         depends_on:
             - trainsim-api
     trainsim-api:
-        build: trainsim-api
+        image: maven:3.8.1-openjdk-11
+        command: mvn exec:java -pl trainsim-api
+        working_dir: /source
+        volumes:
+            - source-code:/source:ro
+            - maven-repo:/root/.m2
         ports:
             - "8001:80"
             - "1044:1044"
+        environment:
+            MAVEN_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:1044
         depends_on:
             - trainsim-planner
             - trainsim-db
@@ -31,10 +38,17 @@ services:
             - "5432:5432"
         depends_on:
             - trainsim-planner
-    trainsim-pgadmin:
-        image: dpage/pgadmin4:5.4
-        environment:
-            PGADMIN_DEFAULT_EMAIL: user@example.com
-            PGADMIN_DEFAULT_PASSWORD: password
-        ports:
-            - "8003:80"
+    # trainsim-pgadmin:
+    #     image: dpage/pgadmin4:5.4
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: user@example.com
+    #         PGADMIN_DEFAULT_PASSWORD: password
+    #     ports:
+    #         - "8003:80"
+volumes:
+    maven-repo:
+    source-code:
+        driver_opts:
+            o: bind
+            type: none
+            device: ./

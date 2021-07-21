@@ -1,5 +1,6 @@
 import "bulma/css/bulma.css";
 import React from "react";
+import { Itinerary } from "../models";
 import Stop from "../Stop";
 import TrainQuery from "../TrainQuery";
 import DateField from "./DateField";
@@ -11,6 +12,11 @@ interface SearchFormState {
     stops: Stop[];
     query: TrainQuery;
     isRoundTrip: boolean;
+    isLoading: boolean;
+}
+
+interface SearchFormProps {
+    setItineraries: (itineraries: Itinerary[]) => void;
 }
 
 // https://stackoverflow.com/a/19691491
@@ -23,7 +29,7 @@ function addDays(date: Date, days: number) {
 function isValidQuery(state: SearchFormState) {
     const stops = state.stops.map(s => s.name);
     const query = state.query;
-    
+
     if (!stops.includes(query.source) || !stops.includes(query.target)) {
         return false;
     }
@@ -31,16 +37,8 @@ function isValidQuery(state: SearchFormState) {
     return !(query.returnDate && query.returnDate <= query.departDate);
 }
 
-function submit(state: SearchFormState) {
-    const query = state.isRoundTrip ? state.query : { ...state.query, returnDate: null };
-
-    const req = new XMLHttpRequest();
-    req.open("POST", "/api/query", true);
-    req.send(JSON.stringify(query));
-}
-
-export default class SearchForm extends React.Component<{}, SearchFormState> {
-    constructor(props: {}) {
+export default class SearchForm extends React.Component<SearchFormProps, SearchFormState> {
+    constructor(props: SearchFormProps) {
         super(props);
         this.state = {
             stops: [],
@@ -51,14 +49,27 @@ export default class SearchForm extends React.Component<{}, SearchFormState> {
                 returnDate: addDays(new Date(), 3),
                 travelers: 1
             },
-            isRoundTrip: false
+            isRoundTrip: false,
+            isLoading: false
         };
+
+        this.submit = this.submit.bind(this);
     }
 
     override componentDidMount() {
         fetch("/api/stops")
             .then(res => res.json())
             .then(res => this.setState({ stops: res }));
+    }
+
+    submit() {
+        this.setState({ isLoading: true });
+        const { isRoundTrip, query } = this.state;
+        const body = JSON.stringify(isRoundTrip ? query : { ...query, returnDate: null });
+
+        fetch("/api/query", { method: "POST", body })
+            .then(res => res.json())
+            .then(res => this.props.setItineraries(res));
     }
 
     override render() {
@@ -124,9 +135,10 @@ export default class SearchForm extends React.Component<{}, SearchFormState> {
             <div className="columns">
                 <div className="column has-text-centered">
                     <button
-                        className="button is-medium is-fullwidth is-primary"
+                        className={`button is-medium is-fullwidth is-primary
+                                    ${this.state.isLoading ? "is-loading" : ""}`}
                         disabled={isValidQuery(this.state)}
-                        onClick={_ => submit(this.state)}
+                        onClick={_ => this.submit()}
                     >
                         Find Trains
                     </button>

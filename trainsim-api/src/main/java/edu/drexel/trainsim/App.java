@@ -1,21 +1,44 @@
 package edu.drexel.trainsim;
 
-import org.sql2o.Sql2o;
+import com.google.gson.GsonBuilder;
+import com.google.inject.Guice;
+import com.zaxxer.hikari.HikariConfig;
 
-import edu.drexel.trainsim.models.Query;
-import edu.drexel.trainsim.queries.GetAllStops;
+import edu.drexel.trainsim.db.DatabaseModule;
+import edu.drexel.trainsim.otp.OtpModule;
+import edu.drexel.trainsim.web.PlanController;
+import edu.drexel.trainsim.web.StopController;
 import io.javalin.Javalin;
+import io.javalin.plugin.json.JavalinJson;
 
 public class App {
-    public static void main(String[] args) {
-        Sql2o sql2o = new Sql2o(getEnv("DB_URL"), getEnv("DB_USER"), getEnv("DB_PASSWORD"));
-        var query = new GetAllStops(sql2o);
-        var app = Javalin.create().start(80);
-        app.get("/api/stops", ctx -> ctx.json(query.execute()));
-        app.post("/api/query", ctx -> {
-            var body = ctx.bodyAsClass(Query.class);
-            ctx.status(200);
-        });
+    public static void main(String[] args) throws Exception {
+        Thread.sleep(2000);
+
+        // Database
+        var hikari = new HikariConfig();
+        hikari.setJdbcUrl(getEnv("DB_URL"));
+        hikari.setUsername(getEnv("DB_USER"));
+        hikari.setPassword(getEnv("DB_PASSWORD"));
+
+        // Dependency injection
+        var injector = Guice.createInjector(
+            new DatabaseModule(hikari),
+            new OtpModule(getEnv("OTP_URL"))
+        );
+
+        // Web server
+        var gson = new GsonBuilder().create();
+        JavalinJson.setFromJsonMapper(gson::fromJson);
+        JavalinJson.setToJsonMapper(gson::toJson);
+        var app = Javalin.create();
+
+        // Setup controllers
+        injector.getInstance(PlanController.class).bindRoutes(app);
+        injector.getInstance(StopController.class).bindRoutes(app);
+
+        // Start the web server
+        app.start(80);
     }
 
     private static String getEnv(String name) {

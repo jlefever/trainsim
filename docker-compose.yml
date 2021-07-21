@@ -23,9 +23,14 @@ services:
             DB_URL: jdbc:postgresql://trainsim-db:5432/trainsim
             DB_USER: user
             DB_PASSWORD: password
+            OTP_URL: http://trainsim-planner:80
         depends_on:
             - trainsim-planner
             - trainsim-db
+    trainsim-planner:
+        build: trainsim-planner
+        ports:
+            - 8002:80
     trainsim-db:
         image: postgres:13
         environment:
@@ -37,7 +42,3 @@ services:
             - ./trainsim-db/scripts:/docker-entrypoint-initdb.d:ro
         ports:
             - 5432:5432
-    trainsim-planner:
-        build: trainsim-planner
-        ports:
-            - 8002:80

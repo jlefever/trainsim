@@ -1,4 +1,6 @@
 .m2
+.idea
+**/*.iml
 **/target/
 **/.settings/
 **/.classpath

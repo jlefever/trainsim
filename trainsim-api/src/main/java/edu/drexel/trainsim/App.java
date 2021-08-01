@@ -8,6 +8,7 @@ import edu.drexel.trainsim.db.DatabaseModule;
 import edu.drexel.trainsim.otp.OtpModule;
 import edu.drexel.trainsim.web.PlanController;
 import edu.drexel.trainsim.web.StopController;
+import edu.drexel.trainsim.web.UserLoginController;
 import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJson;
 
@@ -31,11 +32,15 @@ public class App {
         var gson = new GsonBuilder().create();
         JavalinJson.setFromJsonMapper(gson::fromJson);
         JavalinJson.setToJsonMapper(gson::toJson);
-        var app = Javalin.create();
+        var app = Javalin.create(config -> {
+            config.enableDevLogging();
+            config.enableCorsForAllOrigins();
+        });
 
         // Setup controllers
         injector.getInstance(PlanController.class).bindRoutes(app);
         injector.getInstance(StopController.class).bindRoutes(app);
+        injector.getInstance(UserLoginController.class).bindRoutes(app);
 
         // Start the web server
         app.start(80);

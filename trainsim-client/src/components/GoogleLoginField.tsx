@@ -86,6 +86,7 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
             buttonText="Log in with Google"
             onSuccess={this.loginSuccess}
             onFailure={this.loginFailure}
+            isSignedIn={true}
             cookiePolicy={'single_host_origin'}
         />
     }

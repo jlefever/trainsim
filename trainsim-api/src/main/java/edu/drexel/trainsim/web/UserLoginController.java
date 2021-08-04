@@ -1,14 +1,17 @@
 package edu.drexel.trainsim.web;
 
 import com.google.inject.Inject;
+import edu.drexel.trainsim.db.commands.GetOrCreateGoogleUser;
+import edu.drexel.trainsim.db.models.User;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 public class UserLoginController implements Controller {
+    private final GetOrCreateGoogleUser getOrCreateGoogleUser;
 
     @Inject
-    public UserLoginController() {
-        System.out.println("123");
+    public UserLoginController(GetOrCreateGoogleUser cmd) {
+        this.getOrCreateGoogleUser = cmd;
     }
 
     public void bindRoutes(Javalin app) {
@@ -16,7 +19,11 @@ public class UserLoginController implements Controller {
     }
 
     private void testUser(Context ctx) {
-        System.out.println(ctx.body());
-        ctx.status(200);
+        var user = ctx.bodyAsClass(User.class);
+        System.out.println(user.getEmail());
+        var key = getOrCreateGoogleUser.call(user);
+        user.setId(key);
+        System.out.println(user.getId());
+        ctx.json(user);
     }
 }

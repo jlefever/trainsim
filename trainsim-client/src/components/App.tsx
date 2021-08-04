@@ -1,19 +1,10 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
+import GoogleLoginField from "./GoogleLoginField";
 
 import "bulma/css/bulma.css";
 
 import Home from "./Home";
 
-const client_id = "980475465865-qu5scv4mr1qmqspcn7lj3ft910cgif96.apps.googleusercontent.com"
-
-function handleCredentialResponse(response: object) {
-    console.log(response)
-    const body = JSON.stringify(response);
-
-    fetch("/api/users", { method: "POST",body })
-        .then(res => console.log(res.statusText))
-}
 
 export default () => <section className="section mt-1 pt-1">
     <div className="container is-max-widescreen">
@@ -27,17 +18,9 @@ export default () => <section className="section mt-1 pt-1">
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <a className="button is-dark has-text-weight-bold" href="#">Sign up</a>
-                            <a className="button is-light has-text-weight-bold" href="#">Log in</a>
-
-                            <GoogleLogin
-                                clientId={client_id}
-                                buttonText="Log in with Google"
-                                onSuccess={handleCredentialResponse}
-                                onFailure={handleCredentialResponse}
-                                cookiePolicy={'single_host_origin'}
-                            />
-
+                            {/* <a className="button is-dark has-text-weight-bold" href="#">Sign up</a>
+                            <a className="button is-light has-text-weight-bold" href="#">Log in</a> */}
+                            <GoogleLoginField />
                         </div>
                     </div>
                 </div>

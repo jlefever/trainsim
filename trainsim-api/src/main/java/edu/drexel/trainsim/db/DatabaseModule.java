@@ -6,6 +6,8 @@ import com.google.inject.Provides;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import edu.drexel.trainsim.db.commands.GetOrCreateGoogleUser;
+import edu.drexel.trainsim.db.commands.GetOrCreateGoogleUserImpl;
 import org.sql2o.Sql2o;
 
 import edu.drexel.trainsim.db.commands.StoreAllStops;
@@ -26,6 +28,7 @@ public class DatabaseModule extends AbstractModule {
     protected void configure() {
         bind(GetAllStops.class).to(GetAllStopsImpl.class);
         bind(StoreAllStops.class).to(StoreAllStopsImpl.class);
+        bind(GetOrCreateGoogleUser.class).to(GetOrCreateGoogleUserImpl.class);
     }
 
     @Provides

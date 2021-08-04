@@ -135,3 +135,9 @@ CALL otp.load_routes('[
 --         "lon": -75.133487
 --     }
 -- ]');
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL
+);

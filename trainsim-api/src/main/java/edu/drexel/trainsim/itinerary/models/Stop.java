@@ -1,4 +1,4 @@
-package edu.drexel.trainsim.db.models;
+package edu.drexel.trainsim.itinerary.models;
 
 public class Stop {
     private int id;

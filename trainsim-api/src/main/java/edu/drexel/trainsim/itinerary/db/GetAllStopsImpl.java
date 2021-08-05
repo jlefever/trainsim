@@ -1,4 +1,4 @@
-package edu.drexel.trainsim.db.queries;
+package edu.drexel.trainsim.itinerary.db;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 
 import org.sql2o.Sql2o;
 
-import edu.drexel.trainsim.db.models.Stop;
+import edu.drexel.trainsim.itinerary.models.Stop;
 
 public class GetAllStopsImpl implements GetAllStops {
     private final Sql2o db;

@@ -2,7 +2,7 @@ package edu.drexel.trainsim.web;
 
 import com.google.inject.Inject;
 
-import edu.drexel.trainsim.db.queries.GetAllStops;
+import edu.drexel.trainsim.itinerary.db.GetAllStops;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 

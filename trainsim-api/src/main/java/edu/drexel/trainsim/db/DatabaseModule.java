@@ -8,8 +8,8 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import org.sql2o.Sql2o;
 
-import edu.drexel.trainsim.db.queries.GetAllStops;
-import edu.drexel.trainsim.db.queries.GetAllStopsImpl;
+import edu.drexel.trainsim.itinerary.db.GetAllStops;
+import edu.drexel.trainsim.itinerary.db.GetAllStopsImpl;
 
 public class DatabaseModule extends AbstractModule {
     private final Sql2o db;

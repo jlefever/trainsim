@@ -23,36 +23,21 @@ import edu.drexel.trainsim.itinerary.search.ItinerarySearch;
 import edu.drexel.trainsim.itinerary.search.ItinerarySearchEngine;
 
 public class ItinerarySearchEngineImpl implements ItinerarySearchEngine {
-    private String baseUrl;
-    private HttpClient http;
+    private OtpClient client;
     private Gson mapper;
 
-    public ItinerarySearchEngineImpl(String baseUrl) throws Exception {
-        this.baseUrl = baseUrl;
+    public ItinerarySearchEngineImpl(OtpClient client) {
+        this.client = client;
         this.mapper = new Gson();
-        this.http = new HttpClient();
-        this.http.start();
     }
 
     @Override
     public List<Itinerary> search(ItinerarySearch search) {
         // 1. Make the request to OTP
-        var formatter = new SimpleDateFormat("yyyy-MM-dd");
-        var date = formatter.format(search.getDepartDate());
-        var url = "plan?&mode=TRANSIT&time=12:00AM&searchWindow=86400" + "&fromPlace=" + search.getSource()
-                + "&toPlace=" + search.getTarget() + "&date=" + date;
-
-        ContentResponse res;
-
-        try {
-            res = this.http.GET(urlFor(url));
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
-        }
+        var json = this.client.plan(search.getDepartDate(), search.getSource(), search.getTarget());
 
         // 2. Map the response JSON to our DTOs.
-        var content = res.getContentAsString();
-        var dto = this.mapper.fromJson(content, PlanResponseDto.class);
+        var dto = this.mapper.fromJson(json, PlanResponseDto.class);
 
         // 3. Map the DTOs to our model objects.
         var itineraries = new ArrayList<Itinerary>();
@@ -62,10 +47,6 @@ public class ItinerarySearchEngineImpl implements ItinerarySearchEngine {
         }
 
         return itineraries;
-    }
-
-    private String urlFor(String path) {
-        return this.baseUrl + "/otp/routers/default/" + path;
     }
 
     private static List<Leg> createLegs(ItineraryDto dto) {

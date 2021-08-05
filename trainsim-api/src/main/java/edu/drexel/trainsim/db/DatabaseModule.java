@@ -8,8 +8,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import org.sql2o.Sql2o;
 
-import edu.drexel.trainsim.db.commands.StoreAllStops;
-import edu.drexel.trainsim.db.commands.StoreAllStopsImpl;
 import edu.drexel.trainsim.db.queries.GetAllStops;
 import edu.drexel.trainsim.db.queries.GetAllStopsImpl;
 
@@ -25,7 +23,6 @@ public class DatabaseModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(GetAllStops.class).to(GetAllStopsImpl.class);
-        bind(StoreAllStops.class).to(StoreAllStopsImpl.class);
     }
 
     @Provides

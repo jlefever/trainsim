@@ -7,11 +7,13 @@ interface SearchResultsProps {
 }
 
 function getStart(itinerary: Itinerary): Date {
-    return new Date(itinerary.legs[0].from.departure);
+    return new Date(itinerary.legs[0].places[0].departAt);
 }
 
 function getEnd(itinerary: Itinerary): Date {
-    return new Date(itinerary.legs[itinerary.legs.length - 1].to.arrival);
+    const legs = itinerary.legs;
+    const places = legs[legs.length - 1].places;
+    return new Date(places[places.length - 1].arriveAt);
 }
 
 function toDateStr(date: Date): string {
@@ -66,8 +68,11 @@ export default class SearchResults extends React.Component<SearchResultsProps> {
                 </div>
                 <div className="column">
                     <div className="buttons">
-                        <button className="button is-fullwidth is-primary has-text-weight-bold">Coach - $21</button>
-                        <button className="button is-fullwidth is-primary has-text-weight-bold">Business - $31</button>
+                        <button className="button is-fullwidth is-primary has-text-weight-bold is-outlined">Coach - $21</button>
+                        <button className="button is-fullwidth is-primary has-text-weight-bold">
+                            <span className="icon is-small"><i className="fas fa-check"></i></span>
+                            <span>Business - $31</span>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,11 @@
-package edu.drexel.trainsim.otp.models;
+package edu.drexel.trainsim.itinerary.otp.dtos;
 
-public class Place {
+public class PlaceDto {
     private final String stopId;
     private final long arrival;
     private final long departure;
 
-    public Place(String stopId, long arriveAt, long departAt) {
+    public PlaceDto(String stopId, long arriveAt, long departAt) {
         this.stopId = stopId;
         this.arrival = arriveAt;
         this.departure = departAt;

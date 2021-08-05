@@ -16,12 +16,12 @@ CREATE TABLE otp.routes (
 );
 
 CREATE TABLE otp.itineraries (
-    id SERIAL PRIMARY KEY
+    id UUID PRIMARY KEY
 );
 
 CREATE TABLE otp.legs (
-    id SERIAL PRIMARY KEY,
-    itinerary_id INT REFERENCES otp.itineraries (id) NOT NULL,
+    id UUID PRIMARY KEY,
+    itinerary_id UUID REFERENCES otp.itineraries (id) NOT NULL,
     -- route_id will be null if this is a walking leg.
     route_id INT REFERENCES otp.routes (id),
     sort INT NOT NULL,
@@ -29,8 +29,8 @@ CREATE TABLE otp.legs (
 );
 
 CREATE TABLE otp.places (
-    id SERIAL PRIMARY KEY,
-    leg_id INT REFERENCES otp.places (id) NOT NULL,
+    id UUID PRIMARY KEY,
+    leg_id UUID REFERENCES otp.places (id) NOT NULL,
     stop_id INT REFERENCES otp.stops (id) NOT NULL,
     sort INT NOT NULL,
     arrive_at TIMESTAMP WITH TIME ZONE NOT NULL,

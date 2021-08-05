@@ -1,15 +1,15 @@
-package edu.drexel.trainsim.otp.models;
+package edu.drexel.trainsim.itinerary.search;
 
 import java.util.Date;
 
-public class PlanRequest {
+public class ItinerarySearch {
     private String source;
     private String target;
     private Date departDate;
     private Date returnDate;
     private int travelers;
 
-    public PlanRequest(String source, String target, Date departDate, Date returnDate, int travelers) {
+    public ItinerarySearch(String source, String target, Date departDate, Date returnDate, int travelers) {
         this.source = source;
         this.target = target;
         this.departDate = departDate;

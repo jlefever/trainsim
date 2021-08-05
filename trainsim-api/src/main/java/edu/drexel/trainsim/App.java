@@ -5,8 +5,8 @@ import com.google.inject.Guice;
 import com.zaxxer.hikari.HikariConfig;
 
 import edu.drexel.trainsim.db.DatabaseModule;
-import edu.drexel.trainsim.otp.OtpModule;
-import edu.drexel.trainsim.web.PlanController;
+import edu.drexel.trainsim.itinerary.ItineraryModule;
+import edu.drexel.trainsim.web.ItineraryController;
 import edu.drexel.trainsim.web.StopController;
 import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJson;
@@ -24,7 +24,7 @@ public class App {
         // Dependency injection
         var injector = Guice.createInjector(
             new DatabaseModule(hikari),
-            new OtpModule(getEnv("OTP_URL"))
+            new ItineraryModule(getEnv("OTP_URL"))
         );
 
         // Web server
@@ -34,7 +34,7 @@ public class App {
         var app = Javalin.create();
 
         // Setup controllers
-        injector.getInstance(PlanController.class).bindRoutes(app);
+        injector.getInstance(ItineraryController.class).bindRoutes(app);
         injector.getInstance(StopController.class).bindRoutes(app);
 
         // Start the web server

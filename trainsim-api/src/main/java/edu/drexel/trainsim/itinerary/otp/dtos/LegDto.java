@@ -1,13 +1,13 @@
-package edu.drexel.trainsim.otp.models;
+package edu.drexel.trainsim.itinerary.otp.dtos;
 
-public class Leg {
+public class LegDto {
     private final String routeId;
-    private final Place from;
-    private final Place to;
-    private final Place[] intermediateStops;
+    private final PlaceDto from;
+    private final PlaceDto to;
+    private final PlaceDto[] intermediateStops;
     private final double distance;
 
-    public Leg(String routeId, Place from, Place to, Place[] intermediateStops, double distance) {
+    public LegDto(String routeId, PlaceDto from, PlaceDto to, PlaceDto[] intermediateStops, double distance) {
         this.routeId = routeId;
         this.from = from;
         this.to = to;
@@ -15,30 +15,23 @@ public class Leg {
         this.distance = distance;
     }
 
-
     public String getRouteId() {
         return this.routeId;
     }
 
-
-    public Place getFrom() {
+    public PlaceDto getFrom() {
         return this.from;
     }
 
-
-    public Place getTo() {
+    public PlaceDto getTo() {
         return this.to;
     }
 
-
-    public Place[] getIntermediateStops() {
+    public PlaceDto[] getIntermediateStops() {
         return this.intermediateStops;
     }
-
 
     public double getDistance() {
         return this.distance;
     }
-
-
 }

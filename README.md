@@ -15,7 +15,7 @@ mvn clean install
 docker-compose up
 ```
 
-You should then be able to visit https://localhost:8000/ in your browser. Ignore the certificate error and you will be greated with the homepage. (The certificate error happens because it is self-signed. It is not a concern because we only running locally.)
+You should then be able to visit https://localhost:8000/ in your browser. Ignore the certificate error and you will be greated with the homepage. (The certificate error happens because it is self-signed. It is not a concern because we are running locally.)
 
 ## Structure
 
@@ -35,7 +35,7 @@ This is a Java web server. It uses trainsim-db and trainsim-planner to answer re
 
 ### trainsim-client
 
-This is the user interface of our application. It is written in [TypeScript](https://www.typescriptlang.org/) and uses [React](https://reactjs.org/) to render our views. We use [npm](https://www.npmjs.com/) to manage our dependencies and [webpack](https://webpack.js.org/) to build our project. Building the project (with `npm run build`) will result in a bundle of `.js` and `.html` being output to the `dist/` directory. We use [nginx](https://www.nginx.com/) to serve this `dist/` directory to the browser. The `nginx.conf` also configures nginx to forward requests to trainsim-api. This allows the client to make requests to the api.
+This is the user interface of our application. It is written in [TypeScript](https://www.typescriptlang.org/) and uses [React](https://reactjs.org/) to render our views. We use [npm](https://www.npmjs.com/) to manage our dependencies and [webpack](https://webpack.js.org/) to build our project. Building the project (with `npm run build`) will result in a bundle of `.js` and `.html` being output to the `dist/` directory. We use [nginx](https://www.nginx.com/) to serve this `dist/` directory to the browser. The `nginx.conf` also configures nginx to forward any urls which start with `/api/` to trainsim-api. This allows the client to make requests to the api without using a different port.
 
 If you are brand new to frontend development, here are some great resources for getting started:
 - [A re-introduction to JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) - A great refresher or introduction to JavaScript

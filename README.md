@@ -1,6 +1,8 @@
 # Train Sim
 
-A work-in-progress application to simulate purchasing train tickets.
+A work-in-progress application to simulate purchasing train tickets. This project is used for an assignment of SE 577 at Drexel University.
+
+Please do not hesistate to contact the TAs (especially Jason Lefever or Hongzhou Fang) with any questions.
 
 ## Getting Started
 
@@ -13,11 +15,11 @@ mvn clean install
 docker-compose up
 ```
 
-You should then be able to visit https://localhost:8000/ in your browser. Ignore the certificate error and you will be greated with the homepage. (The certificate error happens because it is self-signed. It is not a concern because we are only on localhost.)
+You should then be able to visit https://localhost:8000/ in your browser. Ignore the certificate error and you will be greated with the homepage. (The certificate error happens because it is self-signed. It is not a concern because we only running locally.)
 
 ## Structure
 
-This project contains four services, each with an associated Dockerfile. If you are new to Docker, check out this [introduction](https://docs.docker.com/get-started/overview/).
+This project contains four services, each with an associated Dockerfile. If you are new to Docker, check out this great [introduction](https://docs.docker.com/get-started/overview/).
 
 ### trainsim-db
 
@@ -29,7 +31,7 @@ This is an [OpenTripPlanner](https://www.opentripplanner.org/) server with SEPTA
 
 ### trainsim-api
 
-This is a Java web server. It uses trainsim-db and trainsim-otp to answer requests from the frontend. It is where most of the use cases will be implemented. We use a few small libraries to implement the server. Check `trainsim-api/pom.xml` for details.
+This is a Java web server. It uses trainsim-db and trainsim-planner to answer requests from the frontend. It is where most of the use cases will be implemented. We use a few small libraries to implement the server. Check `trainsim-api/pom.xml` for details.
 
 ### trainsim-client
 
@@ -40,7 +42,7 @@ If you are brand new to frontend development, here are some great resources for 
 - [TypeScript for JavaScript Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) - TypeScript gives JavaScript a type system that should feel much more like Java
 - [React Hello World](https://reactjs.org/docs/hello-world.html) - Highly recommend reading through as much as this as you can if you are new to React
 
-There are also great resources out there on npm, webpack, and nginx but you should not have to modify the configurations of these tools. (But it never hurts to get more familiar with the tools you are using.) Please do not hesistate to contact the TAs if you are having troubles with any of the above.
+There are also great resources out there on npm, webpack, and nginx but you should not have to modify the configurations of these tools. (But it never hurts to get more familiar with the tools you are using.) We understand much of this may be brand new for many students in this class. Please do not hesistate to contact the TAs if you are having troubles with any of the above.
 
 ## Development
 
@@ -48,9 +50,7 @@ You can start the project at any time with `docker-compose up`.
 
 To apply changes you have made to the backend, you could stop all services (with Ctrl + C) and start docker-compose again, but it may be easier to open a new shell and restart just the `trainsim-api` service by running `docker-compose restart trainsim-api`.
 
-If you make any changes to the frontend, simply run `npm run build` to apply your changes. As an alternative to `npm run build`, you can use `npm run watch` (in a different shell from `docker-compose`.) This will cause webpack to rebuild the frontend every time a file is saved. This can make for a more fluid development experience.
-
-There is a lot going on in this project so please do not hesistate to contact the TAs (especially Jason Lefever or Hongzhou Fang) for assistence if needed.
+If you make any changes to the frontend, simply run `npm run build` to apply your changes. As an alternative to `npm run build`, you can use `npm run watch` (in a different shell from `docker-compose up`.) This will cause webpack to rebuild the frontend every time a file is saved. This can make for a more fluid development experience.
 
 ### Debugging
 

@@ -18,6 +18,8 @@ import io.javalin.plugin.json.JavalinJson;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        // Wait until OTP is fully initilized
+        // TOOD: There are certainly better ways to do this.
         Thread.sleep(2000);
 
         // Database

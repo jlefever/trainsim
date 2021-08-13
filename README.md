@@ -96,3 +96,13 @@ In VS Code add the following to your [launch.json](https://code.visualstudio.com
 ```
 
 Now set any breakpoints you would like and start the application with `docker-compose up`. Launch chrome by going to the "Run and Debug" tab of VS Code and running the "Launch 'trainsim-client' in Chrome" task. You may have to press `Ctrl + Shift + F5` to restart if your breakpoints are not being hit.
+
+### Inspect Database
+
+If you would like to use pgAdmin to inspect the database manually, you can run:
+
+```
+docker run --network="trainsim_default" -p 8080:80 -e "PGADMIN_DEFAULT_EMAIL=me@example.org" -e "PGADMIN_DEFAULT_PASSWORD=password" dpage/pgadmin4
+```
+
+Then navigate to http://localhost:8080/ and login with user "me@example.org" and password "password". Then right click "Servers" and select "Create > Server...". Enter "trainsim-db" as the name and then in the "Connection" tab, enter "trainsim-db", "5432", "user", and "password" as the Host, Port, Username and Password respectively. (I have had issues with this in the past. Contact the TAs if you cannot get it working.)

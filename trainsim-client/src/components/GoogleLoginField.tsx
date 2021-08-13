@@ -1,9 +1,9 @@
 import React from "react";
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 
-import "bulma/css/bulma.css";
-
-const client_id = "980475465865-qu5scv4mr1qmqspcn7lj3ft910cgif96.apps.googleusercontent.com"
+// You can create your own credential by going to https://console.cloud.google.com/ and
+// then searching for "Credentials". Follow the prompts to make an "OAuth client ID".
+const clientId = "980475465865-qu5scv4mr1qmqspcn7lj3ft910cgif96.apps.googleusercontent.com"
 
 interface LoginState {
     isLoggedIn: boolean,
@@ -60,7 +60,7 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
             return <div>
                 <small> Hello, {this.state.name}! </small>
                 <GoogleLogout
-                    clientId={client_id}
+                    clientId={clientId}
                     render={renderProps => (
                         <button
                             className="button is-dark has-text-weight-bold"
@@ -74,7 +74,7 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
                 />
             </div>
 
-        return <GoogleLogin clientId={client_id}
+        return <GoogleLogin clientId={clientId}
             render={renderProps => (
                 <button
                     className="button is-dark has-text-weight-bold"

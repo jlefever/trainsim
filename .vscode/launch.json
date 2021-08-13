@@ -15,7 +15,7 @@
             ]
         },
         {
-            "name": "Launch `trainsim-client` in Chrome",
+            "name": "Launch 'trainsim-client' in Chrome",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8000",

@@ -24,7 +24,7 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
         };
     }
 
-    loginSuccess (response: any) {
+    loginSuccess(response: any) {
         const loginInfo = {
             email: response.profileObj.email
         }
@@ -43,47 +43,58 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
             })
     }
 
-    logout () {
+    logout() {
         console.log("Logout")
         this.setState({
             isLoggedIn: false
         })
     }
 
-    loginFailure (response: any) {
+    loginFailure(response: any) {
         console.log("Google login error")
         console.log(response)
     }
 
-    override render () {
-        if (this.state.isLoggedIn)
-            return <div>
-                <small> Hello, {this.state.name}! </small>
+    override render() {
+        if (this.state.isLoggedIn) {
+            return <>
+                <div className="navbar-item has-text-weight-bold">
+                    {this.state.name}
+                </div>
                 <GoogleLogout
                     clientId={clientId}
                     render={renderProps => (
-                        <button
-                            className="button is-dark has-text-weight-bold"
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled} >
-                            Log out
-                        </button >
+                        <div className="navbar-item">
+                            <button
+                                className="button is-dark has-text-weight-bold"
+                                onClick={renderProps.onClick}
+                                disabled={renderProps.disabled} >
+                                <span className="icon">
+                                    <i className="fab fa-google"></i>
+                                </span>
+                                <span>Log Out</span>
+                            </button >
+                        </div>
                     )}
-                    buttonText="Logout"
                     onLogoutSuccess={this.logout}
                 />
-            </div>
+            </>;
+        }
 
         return <GoogleLogin clientId={clientId}
             render={renderProps => (
-                <button
-                    className="button is-dark has-text-weight-bold"
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled} >
-                    Sign-in with Google
-                </button >
+                <div className="navbar-item">
+                    <button
+                        className="button is-dark has-text-weight-bold"
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled} >
+                        <span className="icon">
+                            <i className="fab fa-google"></i>
+                        </span>
+                        <span>Log in with Google</span>
+                    </button >
+                </div>
             )}
-            buttonText="Log in with Google"
             onSuccess={this.loginSuccess}
             onFailure={this.loginFailure}
             isSignedIn={true}

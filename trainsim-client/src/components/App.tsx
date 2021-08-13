@@ -28,13 +28,7 @@ export default class App extends Component<{}, AppState> {
                     </div>
                     <div className="navbar-menu" id="navbar">
                         <div className="navbar-end">
-                            <div className="navbar-item">
-                                <div className="buttons">
-                                    {/* <a className="button is-dark has-text-weight-bold" href="#">Sign up</a>
-                                    <a className="button is-light has-text-weight-bold" href="#">Log in</a> */}
-                                    <GoogleLoginField />
-                                </div>
-                            </div>
+                            <GoogleLoginField />
                         </div>
                     </div>
                 </nav>

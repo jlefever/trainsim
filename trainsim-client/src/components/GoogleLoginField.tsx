@@ -17,37 +17,23 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
         this.loginSuccess = this.loginSuccess.bind(this);
         this.loginFailure = this.loginFailure.bind(this);
         this.logout = this.logout.bind(this);
-        this.state = {
-            isLoggedIn: false,
-            name: "",
-            userId: -1
-        };
+        this.state = { isLoggedIn: false, name: "", userId: -1 };
     }
 
     loginSuccess(response: any) {
-        const loginInfo = {
-            email: response.profileObj.email
-        }
-        console.log(loginInfo)
-        const body = JSON.stringify(loginInfo);
+        const email = response.profileObj.email;
 
-        fetch("/api/users", { method: "POST", body })
+        fetch(`/api/user?email=${email}`)
             .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                this.setState({
-                    isLoggedIn: true,
-                    name: response.profileObj.name,
-                    userId: res.id
-                })
-            })
+            .then(res => this.setState({
+                isLoggedIn: true,
+                name: response.profileObj.name,
+                userId: res.id
+            }));
     }
 
     logout() {
-        console.log("Logout")
-        this.setState({
-            isLoggedIn: false
-        })
+        this.setState({ isLoggedIn: false });
     }
 
     loginFailure(response: any) {
@@ -98,7 +84,7 @@ export default class GoogleLoginField extends React.Component<{}, LoginState> {
             onSuccess={this.loginSuccess}
             onFailure={this.loginFailure}
             isSignedIn={true}
-            cookiePolicy={'single_host_origin'}
+            cookiePolicy={"single_host_origin"}
         />
     }
 }

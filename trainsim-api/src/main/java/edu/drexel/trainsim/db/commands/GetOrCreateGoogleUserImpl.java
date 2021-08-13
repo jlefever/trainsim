@@ -1,6 +1,5 @@
 package edu.drexel.trainsim.db.commands;
 
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 import edu.drexel.trainsim.db.models.User;
@@ -8,34 +7,26 @@ import org.sql2o.Sql2o;
 
 public class GetOrCreateGoogleUserImpl implements GetOrCreateGoogleUser {
     private final Sql2o db;
-    private final Gson gson;
 
     @Inject
-    public GetOrCreateGoogleUserImpl(Sql2o db, Gson gson) {
+    public GetOrCreateGoogleUserImpl(Sql2o db) {
         this.db = db;
-        this.gson = gson;
     }
 
-
     @Override
-    public int call(User user) {
-        String query_sql =
-                "SELECT id FROM users WHERE email = :input_email";
+    public User call(String email) {
+        String sql = "SELECT id, email FROM users WHERE email = :email";
+
         try (var con = this.db.open()) {
-            var list = con.createQuery(query_sql)
-                    .addParameter("input_email", user.getEmail())
-                    .executeAndFetch(Integer.class);
-            if (list.isEmpty()) {
-                String insert_sql =
-                        "INSERT INTO users(email)\n" +
-                                "VALUES(:input_email)";
-                return (int) con.createQuery(insert_sql, true)
-                        .addParameter("input_email", user.getEmail())
-                        .executeUpdate()
-                        .getKey();
-            } else {
-                return list.get(0);
+            var res = con.createQuery(sql).addParameter("email", email).executeAndFetch(User.class);
+
+            // There is a race condition here if we have more than one servers talking to the db.
+            if (res.isEmpty()) {
+                sql = "INSERT INTO users(email) VALUES(:email) RETURNING id, email";
+                return con.createQuery(sql).addParameter("email", email).executeAndFetch(User.class).get(0);
             }
+
+            return res.get(0);
         }
     }
 }

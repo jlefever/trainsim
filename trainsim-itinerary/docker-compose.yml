@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+    trainsim-planner:
+        build: trainsim-planner
+    trainsim-itinerary-service:
+        image: maven:3.8.1-openjdk-11
+        command: mvn exec:java -pl trainsim-itinerary-service
+        working_dir: /source
+        volumes:
+            - .:/source
+            - .m2:/root/.m2
+        ports:
+            - 8001:80
+        environment:
+            MAVEN_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:1044
+            DB_URL: jdbc:postgresql://trainsim-itinerary-db:5432/trainsim-itinerary
+            DB_USER: user
+            DB_PASSWORD: password
+            OTP_URL: http://trainsim-planner:80
+        depends_on:
+            - trainsim-planner
+            - trainsim-itinerary-db
+    trainsim-itinerary-db:
+        image: postgres:13
+        environment:
+            POSTGRES_DB: trainsim-itinerary
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+        volumes:
+            - ./trainsim-itinerary-db/data:/var/lib/postgresql/data
+            - ./trainsim-itinerary-db/scripts:/docker-entrypoint-initdb.d:ro

@@ -16,7 +16,7 @@ public class ItineraryController implements Controller {
     }
 
     public void bindRoutes(Javalin app) {
-        app.post("/api/query", ctx -> this.search(ctx));
+        app.post("/api/itinerary/query", ctx -> this.search(ctx));
     }
 
     private void search(Context ctx) throws Exception {

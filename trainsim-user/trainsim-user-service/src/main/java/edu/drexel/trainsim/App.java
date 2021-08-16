@@ -9,11 +9,6 @@ import com.zaxxer.hikari.HikariConfig;
 import org.sql2o.Sql2o;
 
 import edu.drexel.trainsim.db.DatabaseModule;
-import edu.drexel.trainsim.itinerary.ItineraryModule;
-import edu.drexel.trainsim.itinerary.otp.OtpClient;
-import edu.drexel.trainsim.itinerary.otp.Prepopulater;
-import edu.drexel.trainsim.web.ItineraryController;
-import edu.drexel.trainsim.web.StopController;
 import edu.drexel.trainsim.web.UserLoginController;
 import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJson;
@@ -32,14 +27,11 @@ public class App {
 
         // Dependency injection
         Injector injector = Guice.createInjector(
-            new DatabaseModule(hikari),
-            new ItineraryModule(getEnv("OTP_URL"))
+            new DatabaseModule(hikari)
         );
 
         // Prepopulate routes and stops
         Sql2o db = injector.getInstance(Sql2o.class);
-        OtpClient otpClient = injector.getInstance(OtpClient.class);
-        new Prepopulater(db, otpClient).prepopulate();
 
         // Web server
         Gson gson = new GsonBuilder().create();
@@ -51,8 +43,6 @@ public class App {
         });
 
         // Setup controllers
-        injector.getInstance(ItineraryController.class).bindRoutes(app);
-        injector.getInstance(StopController.class).bindRoutes(app);
         injector.getInstance(UserLoginController.class).bindRoutes(app);
 
         // Start the web server

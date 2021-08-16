@@ -15,7 +15,7 @@ public class StopController implements Controller {
     }
 
     public void bindRoutes(Javalin app) {
-        app.get("/api/stops", ctx -> this.getAllStops(ctx));
+        app.get("/api/itinerary/stops", ctx -> this.getAllStops(ctx));
     }
 
     private void getAllStops(Context ctx) {
